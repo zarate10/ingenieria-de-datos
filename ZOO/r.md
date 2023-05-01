@@ -1,1 +1,0 @@
-![alt txt](DER.jpg "der")

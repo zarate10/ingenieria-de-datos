@@ -7,7 +7,6 @@ sep = ';'
 
 try:
     conn = pyodbc.connect('DRIVER={SQL Server};' + f'SERVER=DESKTOP-0KGJ7P5;DATABASE={db};Trusted_Connection=yes;')
-    pass
 except Exception as e: 
     print(e)
 else: 

@@ -1,0 +1,24 @@
+1. Crea una función en SQL que tome dos números como parámetros y devuelva su suma.
+2. Implementa una función en SQL que tome el nombre de un autor como parámetro y devuelva la cantidad de libros escritos por ese autor.
+3. Diseña una función en SQL que calcule el promedio de las edades de los usuarios en la tabla de usuarios.
+4. Crea una función en SQL que tome un género como parámetro y devuelva una lista de los libros que pertenecen a ese género.
+5. Implementa una función en SQL que tome un autor como parámetro y devuelva la lista de géneros en los que ha escrito ese autor, utilizando joins entre las tablas de autores, libros y géneros.
+6. Crea un procedimiento almacenado en SQL que tome el ID de un autor como parámetro y devuelva todos los libros escritos por ese autor.
+7. Diseña un procedimiento almacenado en SQL que tome el nombre de un género como parámetro y devuelva la cantidad de libros en la biblioteca que pertenecen a ese género.
+8. Implementa un procedimiento almacenado en SQL que tome el ID de un usuario y devuelva todos los libros que ha prestado actualmente, es decir, aquellos que aún no han sido devueltos.
+9. Crea un procedimiento almacenado en SQL que tome el ID de un libro como parámetro y actualice su año de publicación a un valor específico.
+10. Diseña un procedimiento almacenado en SQL que tome el nombre de un autor como parámetro y devuelva la cantidad de libros prestados escritos por ese autor en los últimos 6 meses.
+11. Realiza una consulta utilizando INNER JOIN para obtener el nombre del autor y el título del libro correspondiente para todos los libros prestados actualmente.
+12. Utiliza LEFT JOIN para obtener una lista de todos los autores y los libros que han escrito, incluso si no hay libros prestados de ellos.
+13. Realiza una consulta utilizando INNER JOIN para obtener el nombre del usuario y el título del libro correspondiente para todos los libros que han sido devueltos.
+14. Utiliza RIGHT JOIN para obtener una lista de todos los géneros y los libros que pertenecen a cada género, incluso si no hay libros registrados en algunos géneros.
+15. Realiza una consulta utilizando INNER JOIN para obtener el nombre del autor y el título del libro correspondiente para todos los libros publicados después de un año específico.
+16. Diseña un trigger que se active cada vez que se modifique la fecha de devolución de un préstamo y actualice el estado del libro a "devuelto" si la fecha de devolución es anterior a la fecha actual.
+17. Implementa un trigger que se active cada vez que se elimine un autor y elimine automáticamente todos los libros escritos por ese autor de la tabla de libros.
+18. Crea un trigger que se active cada vez que se inserte un nuevo préstamo y verifique si el usuario ha alcanzado el límite de préstamos permitidos. En caso afirmativo, muestra un mensaje de error y evita la inserción del préstamo.
+19. Diseña un trigger que se active cada vez que se actualice la tabla de libros y mantenga actualizada una tabla de auditoría con los cambios realizados en los libros, incluyendo el nombre del usuario que realizó la modificación y la fecha.
+20. Crea una vista que muestre el nombre del autor y la cantidad de libros escritos por cada autor en la tabla de autores.
+21. Diseña una vista que muestre el título del libro, el nombre del autor y el género al que pertenece cada libro en la tabla de libros.
+22. Implementa una vista que muestre el nombre del usuario, el título del libro y la fecha de préstamo de todos los préstamos realizados en la tabla de préstamos.
+23. Crea una vista que muestre el género y la cantidad de libros que pertenecen a cada género en la tabla de libros.
+24. Diseña una vista que muestre el nombre del autor, el título del libro y el género al que pertenece cada libro prestado actualmente en la tabla de préstamos.

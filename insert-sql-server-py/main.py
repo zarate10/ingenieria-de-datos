@@ -1,8 +1,8 @@
 import pyodbc 
 
-db = 'prueba'
-tabla_insert = 'prueba_tabla'
-dataset = 'insert'
+db = 'biblioteca'
+tabla_insert = 'prestamo'
+dataset = 'biblioteca_prestamos'
 sep = ';'
 
 try:
@@ -24,6 +24,6 @@ else:
                 
     except Exception as e: 
         print(e)
-
-    print('Consultas ejecutadas exitosamente.')
-    cursor.close()
+    else: 
+        print('Consultas ejecutadas exitosamente.')
+        cursor.close()

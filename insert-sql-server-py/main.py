@@ -1,8 +1,8 @@
 import pyodbc 
 
-db = 'biblioteca'
-tabla_insert = 'prestamo'
-dataset = 'biblioteca_prestamos'
+db = 'club'
+tabla_insert = 'elemento_socio'
+dataset = 'club_elementos_alq'
 sep = ';'
 
 try:

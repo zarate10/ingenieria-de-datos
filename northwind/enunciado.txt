@@ -1,0 +1,10 @@
+Obtén una vista de todas las órdenes realizadas en la tabla "orders" junto con los detalles del cliente correspondiente de la tabla "customers".
+Crea una vista que muestre los nombres de los productos, su precio unitario y la cantidad disponible en stock de la tabla "products".
+Genera una vista que muestre el nombre del empleado y el total de ventas que ha realizado, utilizando la tabla "employees" y la tabla "orders".
+Crea una vista que muestre los nombres de los clientes, junto con la cantidad total de productos que han ordenado y el monto total gastado por cada uno, utilizando las tablas "customers", "orders" y "order_details".
+Genera una vista que muestre el nombre del producto y la cantidad total vendida de cada producto en la tabla "products" y "order_details".
+Crea una vista que muestre el nombre del empleado y el número total de órdenes que ha procesado, utilizando las tablas "employees" y "orders".
+Genera una vista que muestre el nombre del cliente y el número total de órdenes que ha realizado, utilizando las tablas "customers" y "orders".
+Crea una vista que muestre el nombre del proveedor y la cantidad de productos que suministra, utilizando las tablas "suppliers" y "products".
+Genera una vista que muestre el nombre del cliente y la fecha de la última orden realizada por cada cliente, utilizando las tablas "customers" y "orders".
+Crea una vista que muestre los nombres de los productos y su precio unitario, pero excluyendo los productos que están fuera de stock, utilizando la tabla "products".

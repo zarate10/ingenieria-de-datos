@@ -140,3 +140,141 @@ AS
 	)
 GO
 SELECT * FROM vista_deudas
+------------------------------------------
+-- 2.2 Implementa una función que tome como parámetro el DNI de un socio y devuelva el total de elementos que ha alquilado.
+------------------------------------------
+GO
+DROP FUNCTION IF EXISTS fn_elementos_alquilados_socio 
+GO
+CREATE FUNCTION fn_elementos_alquilados_socio 
+(
+	@dni VARCHAR(50)
+)
+RETURNS INT
+AS
+BEGIN 
+	DECLARE @totalElementos INT
+
+	SET @totalElementos = 
+	(
+	SELECT COUNT(e.nombre)
+	FROM socio s
+	JOIN elemento_socio es ON es.dni = s.dni
+	JOIN elemento e ON es.id_elemento = e.id
+	WHERE s.dni = @dni
+	GROUP BY s.dni
+	)
+	RETURN @totalElementos
+END
+GO
+SELECT dbo.fn_elementos_alquilados_socio('90123456I') as 'elementos alquilados';
+------------------------------------------
+-- 4.2 Implementa un trigger que se active cada vez que se elimine una fila en la tabla socio. 
+-- Este trigger deberá eliminar en cascada todas las filas correspondientes en las tablas actividad_socio, elemento_socio y cuota_socio que estén asociadas al socio eliminado.
+------------------------------------------
+GO
+DROP TRIGGER IF EXISTS tr_borrado_cascada_socio
+GO
+CREATE TRIGGER tr_borraco_cascada_socio
+ON socio 
+FOR DELETE 
+AS
+BEGIN
+	DELETE FROM actividad_socio WHERE dni = (SELECT dni FROM deleted)
+	DELETE FROM elemento_socio WHERE dni = (SELECT dni FROM deleted)
+	DELETE FROM cuota_socio WHERE dni = (SELECT dni FROM deleted)
+END
+------------------------------------------
+-- 10.2 Crea una vista llamada vista_elementos_alquilados que muestre el DNI, nombre y fecha de alquiler de los elementos que están actualmente alquilados por los socios.
+------------------------------------------
+GO
+DROP VIEW IF EXISTS vista_elementos_alquilados
+GO
+CREATE VIEW vista_elementos_alquilados
+AS
+	(
+		SELECT s.dni, e.nombre, es.fecha_alq
+		FROM elemento_socio es
+		JOIN socio s ON es.dni = s.dni 
+		JOIN elemento e ON es.id_elemento = e.id 
+
+	)
+------------------------------------------
+-- 2.4 Implementa una función que tome como parámetro la edad de un socio y devuelva la cantidad de actividades en las que participa.
+------------------------------------------
+GO
+DROP FUNCTION IF EXISTS fn_socios_edad_actividades 
+GO
+CREATE FUNCTION fn_socios_edad_actividades
+(
+	@edad INT 
+)
+RETURNS TABLE
+	RETURN (
+		SELECT a.nombre, COUNT(a.nombre) AS cantidad_inscriptos
+		FROM actividad_socio acso
+		JOIN socio s ON s.dni = acso.dni 
+		JOIN actividad a ON acso.id_actividad = a.id
+		WHERE edad > @edad
+		GROUP BY a.nombre
+	)
+GO
+SELECT * FROM fn_socios_edad_actividades(20);
+------------------------------------------
+-- 1.10 Combina las tablas socio, actividad_socio y actividad para obtener el nombre de los socios que no participan en ninguna actividad.
+------------------------------------------
+SELECT s.nombre 
+FROM socio s
+LEFT JOIN actividad_socio acso ON s.dni = acso.dni 
+WHERE acso.dni IS NULL
+------------------------------------------
+-- Crea una función que reciba el nombre de una actividad y devuelva la cantidad de socios que participan en dicha actividad y tienen menos de 25 años.
+------------------------------------------
+GO
+DROP FUNCTION IF EXISTS fn_actividad_edad_menor_25
+GO
+CREATE FUNCTION fn_actividad_edad_menor_25
+(
+	@nombre_actividad VARCHAR(50)
+)
+RETURNS TABLE
+RETURN (
+		SELECT a.nombre AS actividad, COUNT(a.nombre) AS cantidad
+		FROM actividad a 
+		JOIN actividad_socio acso ON a.id = acso.id_actividad
+		JOIN socio s ON acso.dni = s.dni
+		WHERE s.edad < 25 AND a.nombre LIKE '%' + @nombre_actividad + '%'
+		GROUP BY a.nombre
+)
+GO
+SELECT * FROM fn_actividad_edad_menor_25('Pilates')
+------------------------------------------
+-- 2.17 Implementa un procedimiento que reciba el DNI de un socio y devuelva una tabla que muestre el nombre de las actividades en las que participa, 
+-- la cantidad de socios que también participan en esas actividades y el porcentaje de participación del socio en cada una de ellas en relación con el total de socios.
+------------------------------------------
+GO
+DROP PROCEDURE IF EXISTS pr_porcentaje_socios_actividad
+GO
+CREATE PROCEDURE pr_porcentaje_socios_actividad
+(
+	@dni VARCHAR(50)
+)
+AS
+BEGIN
+	DECLARE @total_socios INT
+	SELECT @total_socios = COUNT(*) FROM socio
+
+	SELECT 
+		a.nombre AS actividades, 
+		(SELECT COUNT(*) FROM actividad_socio acso2 WHERE acso2.id_actividad = acso.id_actividad) AS cantidad,
+		(COUNT(acso.id_actividad) * 100.0 / @total_socios) AS porcentaje
+	FROM socio s
+	JOIN actividad_socio acso ON s.dni = acso.dni 
+	JOIN actividad a ON a.id = acso.id_actividad
+	WHERE s.dni = @dni
+	GROUP BY a.nombre, acso.id_actividad;
+END
+SELECT * FROM actividad
+SELECT * FROM actividad_socio
+GO
+EXECUTE pr_porcentaje_socios_actividad '12391ASDC'
